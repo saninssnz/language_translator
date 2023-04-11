@@ -2,7 +2,7 @@
     package="com.example.language_translator">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="language_translator"
+        android:label="Translator"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

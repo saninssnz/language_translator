@@ -93,13 +93,9 @@ class _LanguageListScreenState extends State<LanguageListScreen> {
                           onTap: () {
                             if (dataProvider.isSourceSelected) {
                               dataProvider.setSourceLang(filteredList[index]);
-                              PreferenceFile().setSourceLang(
-                                  filteredList[index].language.toString());
                               setState(() {});
                             } else {
                               dataProvider.setTargetLang(filteredList[index]);
-                              PreferenceFile().setTargetLang(
-                                  filteredList[index].language.toString());
                               setState(() {});
                             }
 

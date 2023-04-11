@@ -27,10 +27,22 @@ class _MainScreenState extends State<MainScreen> {
         .getLanguageList(context)
         .then((value) {
       Provider.of<DataProvider>(context, listen: false).selectedSourceLanguage =
-          Provider.of<DataProvider>(context, listen: false).languageList[0];
+      Provider.of<DataProvider>(context, listen: false).languageList[0];
 
       Provider.of<DataProvider>(context, listen: false).selectedTargetLanguage =
-          Provider.of<DataProvider>(context, listen: false).languageList[2];
+      Provider.of<DataProvider>(context, listen: false).languageList[2];
+    });
+
+    PreferenceFile().getSourceText().then((values){
+      if(null!=values){
+        sourceTextController.text = values;
+      }
+    });
+
+    PreferenceFile().getTargetText().then((values){
+      if(null!=values){
+        targetTextController.text = values;
+      }
     });
 
     super.initState();
@@ -253,6 +265,7 @@ class _MainScreenState extends State<MainScreen> {
                                             .then((values) {
                                           dataProvider.selectedSourceLanguage
                                               .language = values.language!;
+
                                         });
                                       }
 

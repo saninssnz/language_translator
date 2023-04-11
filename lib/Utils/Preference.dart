@@ -1,72 +1,36 @@
 import 'package:language_translator/Model/LanguageModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PreferenceFile {
-  Future setSourceText(String sourceTextJson) async {
+class PreferenceFile{
+
+  Future setSourceText( String sourceTextJson) async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setString("sourceLanguageModel", sourceTextJson);
   }
 
-  Future<String> getSourceText() async {
+  Future<String> getSourceText()async{
     String sourceText = "";
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String jsonData = null != preferences.getString("sourceLanguageModel")
-        ? preferences.getString("sourceLanguageModel")!
-        : "";
-    if (jsonData.isNotEmpty) {
-      sourceText = jsonData;
+    SharedPreferences preferences =await SharedPreferences.getInstance();
+    String jsonData =null!=preferences.getString("sourceLanguageModel")?preferences.getString("sourceLanguageModel")!:"";
+    if(jsonData.isNotEmpty){
+      sourceText =jsonData;
     }
     return sourceText;
   }
 
-  Future setTargetText(String targetTextJson) async {
+  Future setTargetText( String targetTextJson) async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setString("targetLanguageModel", targetTextJson);
   }
 
-  Future<String> getTargetText() async {
+  Future<String> getTargetText()async{
     String targetText = "";
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String jsonData = null != preferences.getString("targetLanguageModel")
-        ? preferences.getString("targetLanguageModel")!
-        : "";
-    if (jsonData.isNotEmpty) {
-      targetText = jsonData;
+    SharedPreferences preferences =await SharedPreferences.getInstance();
+    String jsonData =null!=preferences.getString("targetLanguageModel")?preferences.getString("targetLanguageModel")!:"";
+    if(jsonData.isNotEmpty){
+      targetText =jsonData;
     }
     return targetText;
   }
 
-  Future setSourceLang(String sourceLang) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.setString("sourceLanguageModel", sourceLang);
-  }
-
-  Future<LanguageModel> getSourceLang() async {
-    LanguageModel languageModel = new LanguageModel();
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String jsonData = null != preferences.getString("sourceLanguageModel")
-        ? preferences.getString("sourceLanguageModel")!
-        : "";
-    if (jsonData.isNotEmpty) {
-      languageModel = languageModelFromJson(jsonData);
-    }
-    return languageModel;
-  }
-
-  Future setTargetLang(String targetLang) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.setString("targetLanguageModel", targetLang);
-  }
-
-  Future<LanguageModel> getTargetLang() async {
-    LanguageModel languageModel = new LanguageModel();
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String jsonData = null != preferences.getString("targetLanguageModel")
-        ? preferences.getString("targetLanguageModel")!
-        : "";
-    if (jsonData.isNotEmpty) {
-      languageModel = languageModelFromJson(jsonData);
-    }
-    return languageModel;
-  }
 }
