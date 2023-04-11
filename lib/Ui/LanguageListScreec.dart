@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:language_translator/Model/LanguageModel.dart';
+import 'package:language_translator/Utils/Preference.dart';
 import 'package:language_translator/Utils/UtilFunctions.dart';
 import 'package:provider/provider.dart';
 
@@ -20,23 +21,19 @@ class _LanguageListScreenState extends State<LanguageListScreen> {
   @override
   void initState() {
     filteredList = widget.langList;
-    setState(() {
-
-    });
+    setState(() {});
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<DataProvider>(builder: (context, dataProvider, child)
-    {
+    return Consumer<DataProvider>(builder: (context, dataProvider, child) {
       return Scaffold(
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(80.0),
             child: AppBar(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20)
-              ),
+                  borderRadius: BorderRadius.circular(20)),
               automaticallyImplyLeading: false,
               elevation: 0,
               backgroundColor: Color(0xFF232527),
@@ -48,9 +45,9 @@ class _LanguageListScreenState extends State<LanguageListScreen> {
                     setState(() {
                       filteredList = widget.langList
                           .where((item) =>
-                          UtilFunctions.getLanguageType(item.language!)
-                              .toLowerCase()
-                              .contains(text.toLowerCase()))
+                              UtilFunctions.getLanguageType(item.language!)
+                                  .toLowerCase()
+                                  .contains(text.toLowerCase()))
                           .toList();
                       if (text.isEmpty) {
                         filteredList = widget.langList;
@@ -67,12 +64,10 @@ class _LanguageListScreenState extends State<LanguageListScreen> {
                         borderSide: new BorderSide(color: Colors.white70)),
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide:
-                        BorderSide(color: Colors.white70)),
+                        borderSide: BorderSide(color: Colors.white70)),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
-                        borderSide:
-                        BorderSide(color: Colors.white70)),
+                        borderSide: BorderSide(color: Colors.white70)),
                   ),
                   controller: searchController,
                   style: TextStyle(
@@ -96,11 +91,16 @@ class _LanguageListScreenState extends State<LanguageListScreen> {
                             vertical: 8.0, horizontal: 14),
                         child: InkWell(
                           onTap: () {
-                            if(dataProvider.isSourceSelected){
+                            if (dataProvider.isSourceSelected) {
                               dataProvider.setSourceLang(filteredList[index]);
-                            }
-                            else{
+                              PreferenceFile().setSourceLang(
+                                  filteredList[index].language.toString());
+                              setState(() {});
+                            } else {
                               dataProvider.setTargetLang(filteredList[index]);
+                              PreferenceFile().setTargetLang(
+                                  filteredList[index].language.toString());
+                              setState(() {});
                             }
 
                             Navigator.of(context).pop();
@@ -114,8 +114,7 @@ class _LanguageListScreenState extends State<LanguageListScreen> {
                               child: Row(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 8.0),
+                                    padding: const EdgeInsets.only(right: 8.0),
                                     child: Icon(
                                       Icons.language,
                                       color: Colors.white,
@@ -123,7 +122,8 @@ class _LanguageListScreenState extends State<LanguageListScreen> {
                                   ),
                                   Text(
                                     UtilFunctions.getLanguageType(
-                                        filteredList[index].language
+                                        filteredList[index]
+                                            .language
                                             .toString()),
                                     style: TextStyle(color: Colors.white),
                                   )
@@ -137,7 +137,6 @@ class _LanguageListScreenState extends State<LanguageListScreen> {
               ],
             ),
           ));
-    }
-    );
+    });
   }
 }

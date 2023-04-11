@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:language_translator/Model/LanguageModel.dart';
 import 'package:language_translator/Service/Provider.dart';
 import 'package:language_translator/Ui/LanguageListScreec.dart';
+import 'package:language_translator/Utils/Preference.dart';
 import 'package:language_translator/Utils/UtilFunctions.dart';
 import 'package:provider/provider.dart';
 
@@ -41,15 +42,15 @@ class _MainScreenState extends State<MainScreen> {
       return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Color(0xFF121416),
-        body:  dataProvider.isLanguagesLoading
+        body: dataProvider.isLanguagesLoading
             ? Center(
-          child: CircularProgressIndicator(
-            color: Colors.white70,
-          ),
-        )
+                child: CircularProgressIndicator(
+                  color: Colors.white70,
+                ),
+              )
             : SafeArea(
-          child: SingleChildScrollView(
-            child:Padding(
+                child: SingleChildScrollView(
+                  child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -252,7 +253,6 @@ class _MainScreenState extends State<MainScreen> {
                                             .then((values) {
                                           dataProvider.selectedSourceLanguage
                                               .language = values.language!;
-                                          setState(() {});
                                         });
                                       }
 
@@ -270,6 +270,8 @@ class _MainScreenState extends State<MainScreen> {
                                             .then((values) {
                                           targetTextController.text =
                                               values.translatedText.toString();
+                                          PreferenceFile().setTargetText(
+                                              values.translatedText.toString());
                                           setState(() {});
                                         });
                                       } else {
@@ -277,6 +279,9 @@ class _MainScreenState extends State<MainScreen> {
                                           targetTextController.clear();
                                         });
                                       }
+                                      PreferenceFile().setSourceText(
+                                          sourceTextController.text);
+                                      setState(() {});
                                     });
                                   },
                                   decoration: InputDecoration(
@@ -387,8 +392,8 @@ class _MainScreenState extends State<MainScreen> {
                       ],
                     ),
                   ),
-          ),
-        ),
+                ),
+              ),
       );
     });
   }
